@@ -8,9 +8,8 @@ RUN \
 
 WORKDIR /root/rpmbuild/SOURCES
 
-# http://dbstudy.info/mysql/4.0.30/mysql-4.0.30.tar.gz
 RUN \
-  wget -q https://raw.githubusercontent.com/tukiyo/mysql4.0.30.el6/master/rpmbuild/SOURCES/mysql-4.0.30.tar.gz \
+  wget -q "https://github.com/tukiyo/mysql4.0php5.3/releases/download/sources/mysql-4.0.30.tar.gz" \
   && tar xzf mysql-4.0.30.tar.gz \
   && rm -f mysql-4.0.30.tar.gz
 
@@ -22,7 +21,7 @@ RUN \
 
 RUN \
   yum install -y gettext \
-  && rpm -ivh https://raw.githubusercontent.com/tukiyo/mysql4.0.30.el6/master/rpmbuild/RPMS/x86_64/checkinstall-20150420-1.x86_64.rpm \
+  && rpm -ivh "https://github.com/tukiyo/mysql4.0php5.3/releases/download/sources/checkinstall-20150420-1.x86_64.rpm" \
   && ln -s /usr/local/lib/installwatch.so /usr/local/lib64/installwatch.so \
   && checkinstall -y -R --pkgname=opt-mysql4 \
   && ls -lh /root/rpmbuild/RPMS/x86_64/*.rpm
