@@ -54,10 +54,28 @@ ENV CONFIGURE="--prefix=/usr/local/php --with-apxs2=/usr/sbin/apxs --with-config
 RUN ./configure ${CONFIGURE}
 RUN make -s
 RUN make install
-RUN checkinstall -y -R --pkgname=opt-php-5.3 \
+RUN checkinstall -y -R --pkgname=local-php \
   && ls -lh /root/rpmbuild/RPMS/x86_64/*.rpm
 
 #---------
-# php pear
+# php-pear
 #---------
 RUN /usr/local/php/bin/pear install DB-1.8.2
+RUN /usr/local/php/bin/pear install Var_Dump
+WORKDIR /usr/local/pear
+RUN tar czf /root/rpmbuild/SOURCES/local-pear.tar.gz \
+  .registry/db.reg \
+  .registry/var_dump.reg \
+  DB.php \
+  DB/ \
+  Var_Dump.php \
+  Var_Dump/ \
+  data/Var_Dump/ \
+  doc/DB/ \
+  doc/Var_Dump/ \
+  test/DB/ \
+  test/Var_Dump/
+RUN tar xzf /root/rpmbuild/SOURCES/local-pear.tar.gz -C /root/rpmbuild/BUILD/
+WORKDIR /root/rpmbuild/
+COPY local-pear.spec SPECS/
+RUN rpmbuild -ba SPECS/local-pear.spec && sh -c "find . | grep \.rpm$ | xargs ls -lh"
