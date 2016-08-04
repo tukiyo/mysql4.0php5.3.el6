@@ -27,20 +27,10 @@ local-pear
 %install
 rm -rf %{INSTALLDIR}
 mkdir -p %{INSTALLDIR}
-cp -R .registry * %{INSTALLDIR}
+cp -R . %{INSTALLDIR}
 
 %clean
 rm -rf %{buildroot}
 
 %files
-/usr/local/pear/.registry/db.reg
-/usr/local/pear/.registry/var_dump.reg
-/usr/local/pear/DB.php
-/usr/local/pear/DB/
-/usr/local/pear/Var_Dump.php
-/usr/local/pear/Var_Dump/
-/usr/local/pear/data/Var_Dump/
-/usr/local/pear/doc/DB/
-/usr/local/pear/doc/Var_Dump/
-/usr/local/pear/test/DB/
-/usr/local/pear/test/Var_Dump/
+/usr/local/pear/
