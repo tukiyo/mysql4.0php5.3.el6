@@ -15,7 +15,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Prefix: %{_prefix}
 BuildArch: noarch
 
-%define INSTALLDIR %{buildroot}/usr/local/pear
+%define INSTALLDIR %{buildroot}/usr/local/
 
 %description
 local-pear
@@ -34,3 +34,6 @@ rm -rf %{buildroot}
 
 %files
 /usr/local/pear/
+/usr/local/php/bin/pear
+/usr/local/php/bin/peardev
+/usr/local/php/bin/gen_php_doc.sh

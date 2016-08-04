@@ -62,9 +62,11 @@ RUN checkinstall -y -R --pkgname=local-php \
 #---------
 RUN /usr/local/php/bin/pear install DB-1.8.2
 RUN /usr/local/php/bin/pear install Var_Dump
-WORKDIR /usr/local/pear
-RUN tar czf /root/rpmbuild/SOURCES/local-pear.tar.gz . -C /usr/local/pear
-RUN tar xzf /root/rpmbuild/SOURCES/local-pear.tar.gz -C /root/rpmbuild/BUILD/
+WORKDIR /usr/local
+RUN tar czf /root/rpmbuild/SOURCES/local-pear.tar.gz \
+  pear php/bin/pear php/bin/peardev php/bin/gen_php_doc.sh
+RUN tar xzf /root/rpmbuild/SOURCES/local-pear.tar.gz \
+  -C /root/rpmbuild/BUILD/
 WORKDIR /root/rpmbuild/
 COPY local-pear.spec SPECS/
 RUN rpmbuild -ba SPECS/local-pear.spec && sh -c "find . | grep \.rpm$ | xargs ls -lh"
