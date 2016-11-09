@@ -51,8 +51,9 @@ RUN yum install -y -q lemon bison
 RUN rpm -ivh "${GIT}/epel-release-6-8.noarch.rpm"
 RUN yum install -y -q libmcrypt-devel re2c
 ## configure
-ENV CONFIGURE="--prefix=/usr/local/php --with-apxs2=/usr/sbin/apxs --with-pear=/usr/local/pear --disable-cgi --enable-zend-multibyte --enable-mbstring --with-mysql=shared,/opt/mysql --with-openssl --with-mhash=shared,/usr --with-mcrypt=shared,/usr --enable-sockets --enable-pcntl --enable-sigchild --with-gd=shared --with-jpeg-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-freetype-dir=/usr --enable-gd-native-ttf --enable-gd-jis-conv"
-ENV CONFIGURE="$CONFIGURE --with-config-file-path=/etc/"
+ENV CONFIGURE="--prefix=/usr/local/php --with-apxs2=/usr/sbin/apxs --with-pear=/usr/local/pear --disable-cgi --enable-mbstring --with-mysql=shared,/opt/mysql --with-openssl --with-mhash=shared,/usr --with-mcrypt=shared,/usr --enable-sockets --enable-pcntl --enable-sigchild --with-gd=shared --with-jpeg-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-freetype-dir=/usr --enable-gd-native-ttf --enable-gd-jis-conv"
+ENV CONFIGURE="$CONFIGURE --enable-zend-multibyte"
+ENV CONFIGURE="$CONFIGURE --with-config-file-path=/etc/ --with-config-file-scan-dir=/etc/php.d"
 RUN ./configure --quiet ${CONFIGURE}
 RUN make -s
 ## httpdパッケージとconfrictするため /etc/httpd/conf/httpd.conf を除外
