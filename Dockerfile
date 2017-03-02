@@ -64,7 +64,7 @@ RUN checkinstall -y -R --pkgname=local-php --exclude=/etc/httpd/conf/ \
 #---------
 # local-pear
 #---------
-RUN /usr/local/php/bin/pear install DB-1.8.2
+RUN /usr/local/php/bin/pear install DB-1.7.14
 RUN /usr/local/php/bin/pear install Var_Dump
 WORKDIR /usr/local
 RUN tar czf /root/rpmbuild/SOURCES/local-pear.tar.gz \
